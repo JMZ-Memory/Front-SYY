@@ -61,6 +61,20 @@ const router = createRouter({
       component: () => import('../views/Home/Literature/Ancient_and_Modern_Poetry_Display/index.vue')
     },
     {
+      path: '/novel_display:Keyword?',
+      name:'novel_display',
+      component: () => import('../views/Home/Literature/Novel_Display/index.vue'),
+      children:[
+        {
+          path:'chapter:index?',
+          name:'novel_context',
+          component: () => import('../views/Home/Literature/Novel_Display/Main/index.vue'),
+        }
+        
+      ]
+      
+    },
+    {
       path: '/register',
       name: 'register',
       component: () => import('../views/Register/index.vue'),

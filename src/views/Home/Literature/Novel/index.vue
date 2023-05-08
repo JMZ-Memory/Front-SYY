@@ -1,6 +1,6 @@
 <template>
     <div class="contain" v-for="c in Novel_List">
-        <div class="item">
+        <div class="item"  @click="Novel_display(c.id)">
             <img :src="c.cover">
             <div class="jianjie">
                 <h1>书名：{{ c.name }} 作者：{{ c.author }}</h1>
@@ -16,8 +16,11 @@
 <script lang='ts' setup>
 import request from '@/api/request'
 import { ref, reactive } from 'vue'
+import { useRouter,useRoute } from 'vue-router';
 
 const Novel_List = ref<any>()
+const Router = useRouter() 
+const Route = useRoute()
 
 request({
     url: `/Literature/literatureNovel/`,
@@ -25,6 +28,13 @@ request({
 }).then((res: any) => {
     console.log(res)
     Novel_List.value = res
+})
+
+const Novel_display = ((keyword:number)=>{
+    if(Route.query){
+          let location = {name:'novel_display',params:{Keyword:keyword || undefined}};  
+          Router.push(location);
+        }
 })
 </script>
 
